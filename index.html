@@ -6,11 +6,956 @@
 
 <title>JokiSosmed.id ⚡</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+:root {
+    --primary: #7c3aed;
+    --secondary: #db2777;
+    --accent: #38bdf8;
+    --bg-main: #070711;
+}
 
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:var(--bg-main);
+    color:#fff;
+    min-height:100vh;
+    transition: background 0.3s ease;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+}
+
+/* ==========================================
+   BACKGROUND KELAS ATAS & MEWAH (OPENING)
+========================================== */
+
+#opening{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background: 
+        radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at center, #0d0b1e 0%, #030307 100%);
+    background-color: #030307;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+#opening::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: 1;
+    opacity: 0.7;
+}
+
+@keyframes luxuryGlow {
+    0% { transform: scale(1) translate(0, 0); opacity: 0.4; }
+    50% { transform: scale(1.2) translate(20px, -20px); opacity: 0.7; }
+    100% { transform: scale(1) translate(0, 0); opacity: 0.4; }
+}
+
+#opening::after {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.25) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    border-radius: 50%;
+    animation: luxuryGlow 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.openingContent{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding:30px;
+    width:100%;
+    max-width:450px;
+    background: rgba(13, 11, 26, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.logo{
+    font-size:34px;
+    font-weight:900;
+    letter-spacing:2px;
+    text-shadow:
+        0 0 10px rgba(139, 92, 246, 0.8),
+        0 0 30px rgba(139, 92, 246, 0.5);
+}
+
+.logoSmall{
+    color:#c4b5fd;
+    font-size:12px;
+    letter-spacing:5px;
+    margin-top:6px;
+    margin-bottom:25px;
+    text-transform: uppercase;
+}
+
+/* ANIMASI WARNA PELANGI BERGERAK UNTUK TEKS KETIKAN */
+@keyframes rainbowTextFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.nameInput{
+    width: 100%;
+    padding: 15px;
+    border-radius: 16px;
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    outline: none;
+    background: rgba(8, 8, 18, 0.95);
+    
+    /* Efek teks pelangi bergerak */
+    background-image: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff, #ff0000);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowTextFlow 6s ease infinite;
+
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.nameInput::placeholder {
+    color: #64748b;
+    font-weight: normal;
+    -webkit-text-fill-color: #64748b;
+}
+
+.nameInput:focus{
+    border-color: var(--primary);
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.4);
+    background-color: rgba(14, 14, 26, 1);
+}
+
+.enterBtn{
+    width: 100%;
+    padding: 16px 30px;
+    border-radius: 16px;
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
+    transition: all 0.3s ease;
+}
+
+.enterBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(124, 58, 237, 0.6);
+}
+
+.app{
+    max-width:520px;
+    margin:auto;
+    padding-bottom:50px;
+}
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:100;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px;
+    background:#070711dd;
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #222238;
+}
+
+.brand-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand{
+    font-weight:900;
+    letter-spacing:1px;
+    font-size: 16px;
+}
+
+.userBadgeHeader {
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 900;
+    margin-top: 3px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.settingsGearBtn {
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    color: #c084fc;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.settingsGearBtn:hover {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+}
+
+#settingsModal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(3, 3, 10, 0.85);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.settingsContent {
+    background: linear-gradient(145deg, #131124, #0a0a16);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.25);
+    width: 100%;
+    max-width: 400px;
+    border-radius: 24px;
+    padding: 24px;
+}
+
+.settingsContent h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.settingGroup {
+    margin-bottom: 18px;
+}
+
+.settingGroup label {
+    display: block;
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.colorPickerRow {
+    display: flex;
+    gap: 10px;
+}
+
+.colorOption {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s;
+}
+
+.colorOption:hover {
+    transform: scale(1.1);
+}
+
+.closeSettings {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+.hero{
+    margin:18px;
+    padding:25px;
+    border-radius:25px;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(124, 58, 237, 0.3),
+            transparent 45%
+        ),
+        linear-gradient(145deg,#15152a,#0c0c18);
+    border:1px solid #292943;
+}
+
+.marqueeContainer {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    background: transparent;
+    border: none;
+    padding: 4px 0;
+}
+
+.marqueeText {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 12s linear infinite;
+    color: #c084fc;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+@keyframes marquee {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+.hero p{
+    color:#aaa;
+    line-height:1.6;
+    font-size:13px;
+}
+
+.section{
+    padding:0 18px;
+    margin-top:25px;
+}
+
+.sectionTitle{
+    font-size:19px;
+    font-weight:800;
+    margin-bottom:14px;
+}
+
+.features{
+    display:grid;
+    gap:10px;
+}
+
+.feature{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    padding:15px;
+    background:#111120;
+    border:1px solid #24243b;
+    border-radius:15px;
+}
+
+.featureIcon{
+    font-size:22px;
+}
+
+.featureText strong{
+    display:block;
+    font-size:14px;
+    margin-bottom:3px;
+}
+
+.featureText span{
+    color:#888;
+    font-size:12px;
+}
+
+.platforms{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.platform{
+    padding:18px 10px;
+    border-radius:18px;
+    background:#111120;
+    border:1px solid #28283f;
+    color:#ddd;
+    text-align:center;
+    transition:.2s;
+}
+
+.platform:hover{
+    transform:translateY(-2px);
+}
+
+.platform.active{
+    border-color:var(--primary);
+    background:linear-gradient(
+        145deg,
+        #28113f,
+        #15101f
+    );
+    box-shadow:0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.platformIcon svg {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 8px;
+    fill: currentColor;
+    display: inline-block;
+}
+
+.platformName{
+    font-size:14px;
+    font-weight:bold;
+}
+
+.serviceBox{
+    margin-top:15px;
+    padding:17px;
+    border-radius:20px;
+    background:#10101e;
+    border:1px solid #25253c;
+}
+
+.serviceTitle{
+    color:#999;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.services{
+    display:grid;
+    gap:8px;
+}
+
+.service{
+    padding:14px;
+    border-radius:12px;
+    background:#181827;
+    color:#ddd;
+    border:1px solid transparent;
+    text-align:left;
+}
+
+.service.active{
+    border-color:var(--primary);
+    color:#fff;
+}
+
+.customBox{
+    padding: 24px;
+    border-radius: 24px;
+    background: linear-gradient(145deg, #131124, #0a0a16);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.orderFormGroup {
+    margin-bottom: 18px;
+}
+
+.orderFormGroup:last-of-type {
+    margin-bottom: 0;
+}
+
+.label{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #cbd5e1;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.label span.badge-hint {
+    font-size: 10px;
+    background: rgba(139, 92, 246, 0.2);
+    color: #c084fc;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input{
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 16px;
+    border: 1px solid #2a2a45;
+    outline: none;
+    background: #080812;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.input:focus{
+    border-color: var(--primary);
+    background: #0e0e1a;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.25);
+}
+
+.payments{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 5px;
+}
+
+.payment{
+    position: relative;
+    padding: 16px;
+    border-radius: 16px;
+    background: #0d0d1a;
+    border: 1px solid #2a2a45;
+    color: #94a3b8;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: all 0.25s ease;
+}
+
+.payment small {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: normal;
+}
+
+.payment:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    background: #111122;
+}
+
+.payment.active{
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.05));
+    color: #fff;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+}
+
+.payment.active small {
+    color: #c084fc;
+}
+
+.price{
+    margin: 20px 0;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(8, 8, 16, 0.8);
+    border: 1px dashed rgba(139, 92, 246, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priceInfoLeft small {
+    display: block;
+    color: #94a3b8;
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.priceInfoLeft span {
+    color: #f1f5f9;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.price strong{
+    color: var(--accent);
+    font-size: 24px;
+    font-weight: 900;
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+.orderBtn{
+    width: 100%;
+    padding: 18px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.orderBtn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(124, 58, 237, 0.6);
+}
+
+#payModal{
+    position:fixed;
+    inset:0;
+    z-index:9998;
+    background:rgba(3, 3, 10, 0.85);
+    backdrop-filter:blur(10px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    animation: fadeInModal 0.3s ease;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modalContent{
+    background:linear-gradient(145deg, #131124, #0a0a16);
+    border:1px solid rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.25);
+    width:100%;
+    max-width:420px;
+    border-radius:24px;
+    padding:28px;
+    text-align:center;
+    position:relative;
+}
+
+.modalBadge{
+    display:inline-block;
+    padding:6px 14px;
+    background:rgba(139, 92, 246, 0.15);
+    color:#c084fc;
+    border:1px solid rgba(139, 92, 246, 0.3);
+    border-radius:30px;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin-bottom:15px;
+    text-transform:uppercase;
+}
+
+.modalContent h2{
+    font-size:22px;
+    margin-bottom:5px;
+    color:#fff;
+    font-weight:800;
+}
+
+.modalSubtitle{
+    font-size:13px;
+    color:#94a3b8;
+    margin-bottom:20px;
+}
+
+.payInfoBox{
+    background:rgba(8, 8, 18, 0.7);
+    border:1px solid rgba(255, 255, 255, 0.08);
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:20px;
+    text-align:left;
+}
+
+.payRow{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.payRow:last-child{
+    margin-bottom:0;
+}
+
+.payRow span{
+    font-size:12px;
+    color:#94a3b8;
+}
+
+.payValueContainer{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.payRow strong{
+    color:#f8fafc;
+    font-size:15px;
+}
+
+.copyBtn{
+    background:rgba(139, 92, 246, 0.2);
+    color:#c084fc;
+    border:1px solid rgba(139, 92, 246, 0.4);
+    padding:4px 8px;
+    font-size:11px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.2s;
+}
+
+.copyBtn:hover{
+    background:var(--primary);
+    color:#fff;
+}
+
+.dividerLine{
+    height:1px;
+    background:rgba(255, 255, 255, 0.08);
+    margin:12px 0;
+}
+
+.checkStatusBtn{
+    width:100%;
+    padding:16px;
+    border-radius:14px;
+    background:linear-gradient(135deg, #10b981, #059669);
+    color:#fff;
+    font-weight:bold;
+    font-size:14px;
+    box-shadow:0 0 20px rgba(16, 185, 129, 0.4);
+    transition:0.2s;
+}
+
+.checkStatusBtn:hover{
+    opacity:0.9;
+    transform:translateY(-1px);
+}
+
+.cancelModal{
+    background:transparent;
+    color:#94a3b8;
+    margin-top:15px;
+    font-size:13px;
+    cursor:pointer;
+    text-decoration:underline;
+}
+
+.packages{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.package{
+    padding:17px;
+    border-radius:18px;
+    background:#111120;
+    border:1px solid #26263c;
+}
+
+.package h3{
+    font-size:19px;
+    margin-bottom:5px;
+}
+
+.package p{
+    color:#999;
+    font-size:12px;
+    margin-bottom:12px;
+}
+
+.packagePrice{
+    color:#c084fc;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.package button{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    background:#24243a;
+    color:#fff;
+}
+
+.note{
+    margin:30px 18px;
+    text-align:center;
+    color:#666;
+    font-size:11px;
+}
+
+/* ==========================================
+   PREMIUM TOAST NOTIFICATION
+   Menggantikan alert() bawaan browser
+========================================== */
+#premiumToast{
+    position:fixed;
+    top:22px;
+    left:50%;
+    transform:translate(-50%,-20px) scale(.96);
+    width:min(92vw,420px);
+    z-index:20000;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:14px 16px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:18px;
+    background:rgba(15,15,28,.92);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    box-shadow:0 18px 55px rgba(0,0,0,.55), 0 0 35px rgba(124,58,237,.18);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .28s ease, transform .28s ease;
+    overflow:hidden;
+}
+#premiumToast.show{
+    opacity:1;
+    transform:translate(-50%,0) scale(1);
+}
+.toastIcon{
+    width:38px;
+    height:38px;
+    flex:0 0 38px;
+    display:grid;
+    place-items:center;
+    border-radius:13px;
+    font-size:18px;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    box-shadow:0 0 22px rgba(124,58,237,.35);
+}
+.toastBody{min-width:0; flex:1;}
+.toastTitle{
+    color:#fff;
+    font-size:13px;
+    font-weight:900;
+    margin-bottom:3px;
+    letter-spacing:.2px;
+}
+.toastMessage{
+    color:#a7b0c2;
+    font-size:11px;
+    line-height:1.45;
+    word-break:break-word;
+}
+.toastClose{
+    width:28px;
+    height:28px;
+    border-radius:9px;
+    background:rgba(255,255,255,.06);
+    color:#94a3b8;
+    font-size:15px;
+    display:grid;
+    place-items:center;
+}
+.toastClose:hover{background:rgba(255,255,255,.12);color:#fff;}
+.toastProgress{
+    position:absolute;
+    left:0;
+    bottom:0;
+    height:2px;
+    width:100%;
+    background:linear-gradient(90deg,var(--primary),var(--secondary),var(--accent));
+    transform-origin:left;
+}
+@keyframes toastProgress{
+    from{transform:scaleX(1)}
+    to{transform:scaleX(0)}
+}
+@media(max-width:480px){
+    #premiumToast{top:14px;padding:13px 14px;border-radius:16px;}
+    .toastIcon{width:35px;height:35px;flex-basis:35px;}
+}
+
+
+/* Extra professional polish */
+.settingsContent,
+.modalContent,
+.customBox,
+.hero{
+    position:relative;
+    overflow:hidden;
+}
+.settingsContent::before,
+.modalContent::before,
+.customBox::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:12%;
+    right:12%;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+    pointer-events:none;
+}
+.colorOption{
+    box-shadow:0 5px 16px rgba(0,0,0,.28);
+}
+.colorOption:focus-visible,
+.settingsGearBtn:focus-visible,
+.closeSettings:focus-visible,
+.enterBtn:focus-visible,
+.orderBtn:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+}
+
+</style>
 </head>
 
 <body>
+
+<!-- PREMIUM TOAST -->
+<div id="premiumToast" role="status" aria-live="polite">
+    <div class="toastIcon" id="toastIcon">✓</div>
+    <div class="toastBody">
+        <div class="toastTitle" id="toastTitle">Berhasil</div>
+        <div class="toastMessage" id="toastMessage"></div>
+    </div>
+    <button class="toastClose" type="button" onclick="hideToast()" aria-label="Tutup">×</button>
+    <div class="toastProgress" id="toastProgress"></div>
+</div>
+
 
 <!-- ==================================
      OPENING / WELCOME (INPUT NAMA)
@@ -453,8 +1398,421 @@
 </div>
 
 
-<script src="script.js"></script>
+<script>
+loadSavedTheme();
 
+/* ==============================
+   CONFIG
+============================== */
+
+const rate = 5;
+const whatsapp = "6285789796490";
+const danaNumber = "085789796490 (a.n PUTRANASUTION)";
+const gopayNumber = "085789796490 (a.n PUTRANASUTION)";
+const ownerPin = "777";
+
+let selectedPlatform = "TikTok";
+let selectedService = "Followers";
+let selectedPayment = "DANA";
+let currentOrderData = null;
+
+
+/* ==============================
+   ANTI-BYPASS SENSOR KATA KASAR / NEGATIF
+============================== */
+
+function cleanStringForCheck(str) {
+    return str.toLowerCase()
+        .replace(/3/g, 'e')
+        .replace(/4/g, 'a')
+        .replace(/1/g, 'i')
+        .replace(/0/g, 'o')
+        .replace(/5/g, 's')
+        .replace(/7/g, 't')
+        .replace(/[\s\-_.,*@!#]+/g, '');
+}
+
+const forbiddenKeywords = [
+    "kontol", "cntl", "kntol", "vagina", "vgn", "memek", "mmk", 
+    "anjing", "njg", "anjg", "babi", "bangsat", "bgst", "pler", 
+    "pepek", "ngentot", "ngntt", "colmek", "clmk", "titit", 
+    "peler", "asu", "bajingan", "bjngan", "tolol", "goblok", 
+    "gblk", "kampret", "setan", "pantek", "bodoh", "keparat", 
+    "lonte", "bitch", "dick", "pussy", "bujang", "bjng", "bujng", "bjang", "bjg"
+];
+
+function containsForbiddenWord(text) {
+    const cleaned = cleanStringForCheck(text);
+    for (let word of forbiddenKeywords) {
+        if (cleaned.includes(word)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+/* ==========================================
+   PREMIUM TOAST HELPER
+========================================== */
+let toastTimer = null;
+
+function showToast(message, type = "success", title = ""){
+    const toast = document.getElementById("premiumToast");
+    const icon = document.getElementById("toastIcon");
+    const titleEl = document.getElementById("toastTitle");
+    const messageEl = document.getElementById("toastMessage");
+    const progress = document.getElementById("toastProgress");
+
+    const presets = {
+        success: { icon:"✓", title:"Berhasil" },
+        error:   { icon:"!", title:"Terjadi Kesalahan" },
+        warning: { icon:"!", title:"Perhatian" },
+        info:    { icon:"i", title:"Informasi" }
+    };
+
+    const preset = presets[type] || presets.info;
+    icon.innerText = preset.icon;
+    titleEl.innerText = title || preset.title;
+    messageEl.innerText = message;
+
+    clearTimeout(toastTimer);
+    progress.style.animation = "none";
+    void progress.offsetWidth;
+    progress.style.animation = "toastProgress 4.5s linear forwards";
+
+    toast.classList.add("show");
+    toastTimer = setTimeout(hideToast, 4500);
+}
+
+function hideToast(){
+    document.getElementById("premiumToast").classList.remove("show");
+}
+
+
+/* ==============================
+   ENTER WEBSITE & VALIDASI NAMA
+============================== */
+
+function enterWebsite(){
+    const nameInput = document.getElementById("visitorName");
+    const name = nameInput.value.trim();
+    
+    if(name === ""){
+        showToast("Silakan masukkan nama Anda terlebih dahulu sebelum masuk.", "warning", "Nama belum diisi");
+        nameInput.focus();
+        return;
+    }
+
+    if(containsForbiddenWord(name)){
+        showToast("Nama yang mengandung kata-kata kasar atau negatif tidak diperbolehkan.", "error", "Nama tidak valid");
+        nameInput.value = "";
+        nameInput.focus();
+        return;
+    }
+
+    document.getElementById("opening").style.display = "none";
+
+    document.getElementById("displayVisitorName").innerText = `Halo, ${name}`;
+
+    const marquee = document.getElementById("marqueeGreeting");
+    marquee.innerText = `🔥 Halo Selamat Datang, ${name}! Selamat Berbelanja di JokiSosmed.id ⚡ 🔥`;
+}
+
+
+/* ==============================
+   SISTEM KEAMANAN GEAR / OWNER PANEL
+============================== */
+
+function requestOwnerAccess(){
+    document.getElementById("ownerPinModal").style.display = "flex";
+    document.getElementById("ownerPinInput").value = "";
+    document.getElementById("ownerPinInput").focus();
+}
+
+function closeOwnerPinModal(){
+    document.getElementById("ownerPinModal").style.display = "none";
+}
+
+function verifyOwnerPin(){
+    const enteredPin = document.getElementById("ownerPinInput").value.trim();
+    if(enteredPin === ownerPin){
+        closeOwnerPinModal();
+        document.getElementById("settingsModal").style.display = "flex";
+    } else {
+        showToast("PIN Owner yang dimasukkan tidak benar. Silakan coba lagi.", "error", "Akses ditolak");
+        document.getElementById("ownerPinInput").value = "";
+        document.getElementById("ownerPinInput").focus();
+    }
+}
+
+function closeSettingsModal(){
+    document.getElementById("settingsModal").style.display = "none";
+}
+
+function setTheme(primaryColor, secondaryColor, accentColor){
+    document.documentElement.style.setProperty('--primary', primaryColor);
+    document.documentElement.style.setProperty('--secondary', secondaryColor);
+    document.documentElement.style.setProperty('--accent', accentColor);
+
+    try{
+        localStorage.setItem("jokisosmedTheme", JSON.stringify({
+            primary: primaryColor,
+            secondary: secondaryColor,
+            accent: accentColor
+        }));
+    }catch(e){}
+
+    showToast("Tema warna website berhasil diperbarui dan disimpan.", "success", "Tema diperbarui");
+}
+
+function loadSavedTheme(){
+    try{
+        const saved = JSON.parse(localStorage.getItem("jokisosmedTheme"));
+        if(saved && saved.primary && saved.secondary && saved.accent){
+            document.documentElement.style.setProperty('--primary', saved.primary);
+            document.documentElement.style.setProperty('--secondary', saved.secondary);
+            document.documentElement.style.setProperty('--accent', saved.accent);
+        }
+    }catch(e){}
+}
+
+
+let isPlayingMusic = false;
+function toggleMusic(){
+    const audio = document.getElementById("bgMusic");
+    const btn = document.getElementById("musicToggleBtn");
+    
+    if(!isPlayingMusic){
+        audio.play().then(() => {
+            isPlayingMusic = true;
+            btn.innerText = "🎵 Putar Musik Santai: ON";
+        }).catch(err => {
+            showToast("Browser menolak pemutaran audio. Tekan tombol musik sekali lagi untuk mencoba.", "warning", "Musik belum diputar");
+        });
+    } else {
+        audio.pause();
+        isPlayingMusic = false;
+        btn.innerText = "🎵 Putar Musik Santai: OFF";
+    }
+}
+
+
+/* ==============================
+   PLATFORM
+============================== */
+
+function selectPlatform(platform, element){
+    selectedPlatform = platform;
+    document.querySelectorAll(".platform").forEach(button => {
+        button.classList.remove("active");
+    });
+    element.classList.add("active");
+    updateServices();
+}
+
+
+/* ==============================
+   UPDATE SERVICES
+============================== */
+
+function updateServices(){
+    const services = document.getElementById("services");
+    const label = document.getElementById("amountLabel");
+
+    if(selectedPlatform === "WhatsApp Channel"){
+        services.innerHTML = `
+            <button class="service active" onclick="selectService('Suntik Channel',this)">
+                Suntik Channel
+            </button>
+        `;
+        selectedService = "Suntik Channel";
+        label.innerHTML = `Jumlah Member / Suntikan <span class="badge-hint">Rate Rp5/pcs</span>`;
+        return;
+    }
+
+    services.innerHTML = `
+        <button class="service active" onclick="selectService('Followers',this)">
+            Followers
+        </button>
+        <button class="service" onclick="selectService('Likes',this)">
+            Likes
+        </button>
+        <button class="service" onclick="selectService('Views',this)">
+            Views
+        </button>
+    `;
+    selectedService = "Followers";
+    const titleLabel = selectedPlatform === "YouTube" ? "Jumlah Subscribers" : "Jumlah Followers";
+    label.innerHTML = `${titleLabel} <span class="badge-hint">Rate Rp5/pcs</span>`;
+}
+
+
+/* ==============================
+   SERVICE
+============================== */
+
+function selectService(service, element){
+    selectedService = service;
+    document.querySelectorAll(".service").forEach(button => {
+        button.classList.remove("active");
+    });
+    element.classList.add("active");
+}
+
+
+/* ==============================
+   PAYMENT METHOD
+============================== */
+
+function selectPayment(payment, element){
+    selectedPayment = payment;
+    document.querySelectorAll(".payment").forEach(button => {
+        button.classList.remove("active");
+    });
+    element.classList.add("active");
+}
+
+
+/* ==============================
+   CALCULATE PRICE
+============================== */
+
+function calculatePrice(){
+    const amount = parseInt(document.getElementById("amount").value) || 0;
+    const totalPrice = amount * rate;
+    
+    document.getElementById("price").innerText = "Rp" + totalPrice.toLocaleString("id-ID");
+    
+    if(amount > 0) {
+        document.getElementById("summaryText").innerText = `${amount.toLocaleString("id-ID")} ${selectedService}`;
+    } else {
+        document.getElementById("summaryText").innerText = "0 Qty Selected";
+    }
+}
+
+
+/* ==============================
+   CHECKOUT PROSES (CUSTOM)
+============================== */
+
+function proceedCheckout(){
+    const targetLink = document.getElementById("targetLink").value.trim();
+    const amount = parseInt(document.getElementById("amount").value);
+
+    if(!targetLink){
+        showToast("Masukkan link target atau username terlebih dahulu.", "warning", "Target belum diisi");
+        document.getElementById("targetLink").focus();
+        return;
+    }
+
+    if(!amount || amount <= 0){
+        showToast("Masukkan jumlah pesanan yang lebih dari 0.", "warning", "Jumlah belum valid");
+        document.getElementById("amount").focus();
+        return;
+    }
+
+    const totalPrice = amount * rate;
+
+    currentOrderData = {
+        platform: selectedPlatform,
+        service: selectedService,
+        targetLink: targetLink,
+        amount: amount,
+        totalPrice: totalPrice,
+        payment: selectedPayment
+    };
+
+    openModal();
+}
+
+
+/* ==============================
+   CHECKOUT PROSES (PACKAGE)
+============================== */
+
+function checkoutPackage(amount){
+    const targetLink = document.getElementById("targetLink").value.trim();
+
+    if(!targetLink){
+        showToast("Isi link target atau username pada form utama terlebih dahulu.", "warning", "Target belum diisi");
+        document.getElementById("targetLink").focus();
+        return;
+    }
+
+    const totalPrice = amount * rate;
+
+    currentOrderData = {
+        platform: selectedPlatform,
+        service: selectedService,
+        targetLink: targetLink,
+        amount: amount,
+        totalPrice: totalPrice,
+        payment: selectedPayment
+    };
+
+    openModal();
+}
+
+
+/* ==============================
+   MODAL CONTROL
+============================== */
+
+function openModal(){
+    document.getElementById("modalPayMethod").innerText = currentOrderData.payment;
+    document.getElementById("modalPayNumber").innerText = currentOrderData.payment === "DANA" ? danaNumber : gopayNumber;
+    document.getElementById("modalPayAmount").innerText = "Rp" + currentOrderData.totalPrice.toLocaleString("id-ID");
+    
+    document.getElementById("payModal").style.display = "flex";
+}
+
+function closeModal(){
+    document.getElementById("payModal").style.display = "none";
+}
+
+
+/* ==============================
+   COPY TO CLIPBOARD HELPER
+============================== */
+
+function copyToClipboard(elementId){
+    const text = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        showToast("Berhasil disalin ke clipboard.", "success", "Tersalin");
+    });
+}
+
+
+/* ==============================
+   KONFIRMASI TRANSFER MANUAL KE WHATSAPP
+============================== */
+
+function confirmTransfer(){
+    const data = currentOrderData;
+    const visitorNameInput = document.getElementById("visitorName").value.trim();
+
+    const message = 
+        `> [ *NEW ORDER & TRANSFER MANUAL - JOKISOSMED.ID* ] <\n` +
+        `----------------------------------------\n` +
+        `Halo Admin, saya *${visitorNameInput}* sudah melakukan pembayaran manual dengan detail berikut:\n\n` +
+        `* Target Platform : ${data.platform}\n` +
+        `* Jenis Layanan : ${data.service}\n` +
+        `* Link Target : *${data.targetLink}*\n` +
+        `* Jumlah Qty : *${data.amount.toLocaleString("id-ID")}*\n` +
+        `* Total Payment : *Rp${data.totalPrice.toLocaleString("id-ID")}*\n` +
+        `* Metode Pembayaran : *${data.payment} (Manual Transfer)*\n\n` +
+        `----------------------------------------\n` +
+        `Mohon dicek dan segera diproses ya Admin, terima kasih!`;
+
+    const url = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
+    
+    closeModal();
+    window.open(url, "_blank");
+}
+
+</script>
 
 </body>
 </html>
