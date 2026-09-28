@@ -1806,10 +1806,26 @@ function confirmTransfer(){
         `----------------------------------------\n` +
         `Mohon dicek dan segera diproses ya Admin, terima kasih!`;
 
-    const url = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
-    
+    const encodedMessage = encodeURIComponent(message);
+
+    // Utamakan membuka aplikasi WhatsApp langsung.
+    // Jika aplikasi tidak terbuka, otomatis fallback ke WhatsApp Web.
+    const appUrl = `whatsapp://send?phone=${whatsapp}&text=${encodedMessage}`;
+    const webUrl = `https://wa.me/${whatsapp}?text=${encodedMessage}`;
+
     closeModal();
-    window.open(url, "_blank");
+
+    let fallbackTimer = setTimeout(() => {
+        window.location.href = webUrl;
+    }, 1800);
+
+    const cancelFallback = () => {
+        clearTimeout(fallbackTimer);
+        document.removeEventListener("visibilitychange", cancelFallback);
+    };
+
+    document.addEventListener("visibilitychange", cancelFallback);
+    window.location.href = appUrl;
 }
 
 </script>
